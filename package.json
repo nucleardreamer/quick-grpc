@@ -1,0 +1,35 @@
+{
+  "name": "quick-grpc",
+  "version": "1.0.0",
+  "description": "A quick, simple gRPC loader and library generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/tape test/app.test.js"
+  },
+  "engines": {
+    "node": ">=10.2.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nucleardreamer/quick-grpc.git"
+  },
+  "author": "Flynn Joffray <nucleardreamer@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nucleardreamer/quick-grpc/issues"
+  },
+  "homepage": "https://github.com/nucleardreamer/quick-grpc#readme",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "grpc": "^1.15.1",
+    "lodash": "^4.17.11"
+  },
+  "keywords": [
+    "grpc",
+    "protobuf"
+  ],
+  "devDependencies": {
+    "standard": "~11.0.1",
+    "tape": "~4.9.1"
+  }
+}

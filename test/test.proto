@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package just.a.test;
+
+service Test {
+  rpc CoolTest (TestMessage) returns (TestReturn) {}
+}
+
+service TestCamel_Case {
+  rpc CoolTest (TestMessage) returns (TestReturn) {}
+}
+
+message TestMessage {
+  string string_test = 1;
+}
+
+message TestReturn {
+  string string_test = 1;
+}
