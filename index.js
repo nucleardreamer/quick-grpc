@@ -8,7 +8,7 @@ const _ = require('lodash')
 const readdirAsync = promisify(readdir)
 
 class QuickgRPC {
-  constructor ({ host = 'localhost:443', credentials = false , basePath = __dirname }) {
+  constructor ({ host = 'localhost:443', credentials = false, basePath = __dirname }) {
     // create default host address
     let defaultHost = host
     // create default credentials
@@ -33,11 +33,11 @@ class QuickgRPC {
           let ProtoConstructor = _.get(protoObj, protoStringPath)
           // grabbing the string representation (camelCased) of the constructor
           let protoName = _(protoStringPath).chain()
-          .split('.')
-          .last()
-          .camelCase()
-          .value()
-          
+            .split('.')
+            .last()
+            .camelCase()
+            .value()
+
           // store the original defintion as a point of reference, might be redundant
           _.assign(ProtoConstructor, {
             _definition: _.get(protoDef, protoDefObj)
@@ -46,8 +46,8 @@ class QuickgRPC {
           result[protoName] = async function ({ host = false, credentials = false } = {}) {
             // wrapping up the proto method names into a simple construction, in order to apply defaults
             let con = await new ProtoConstructor(
-              ( host || defaultHost ),
-              ( credentials ? makeCredentials(credentials) : defaultCredentials )
+              (host || defaultHost),
+              (credentials ? makeCredentials(credentials) : defaultCredentials)
             )
             return con
           }
@@ -77,7 +77,7 @@ async function getProtoFiles (PROTOS_BASE) {
 
 async function getProtoObject (protoPath) {
   if (!protoPath) throw new Error('No proto definition specified')
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // these options get us close to what grpc.load had in previous versions
     let options = {
       keepCase: false,

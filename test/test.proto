@@ -1,9 +1,10 @@
 syntax = "proto3";
 
-package just.a.test;
+package testprotos;
 
 service Test {
   rpc CoolTest (TestMessage) returns (TestReturn) {}
+  rpc CoolStream (stream TestMessage) returns (stream TestReturn) {}
 }
 
 service TestCamel_Case {
@@ -11,9 +12,9 @@ service TestCamel_Case {
 }
 
 message TestMessage {
-  string string_test = 1;
+  string msg = 1;
 }
 
 message TestReturn {
-  string string_test = 1;
+  string msg = 1;
 }
