@@ -28,7 +28,7 @@ class QuickgRPC {
           join(basePath, protoPath)
         )
 
-        _.forEach(_.keys(protoDef), (protoStringPath, protoDefObj) => {
+        _.forEach(_.keys(protoDef), (protoStringPath) => {
           // storing the original constructor
           let ProtoConstructor = _.get(protoObj, protoStringPath)
           // grabbing the string representation (camelCased) of the constructor
@@ -38,19 +38,13 @@ class QuickgRPC {
             .camelCase()
             .value()
 
-          // store the original defintion as a point of reference, might be redundant
-          _.assign(ProtoConstructor, {
-            _definition: _.get(protoDef, protoDefObj)
-          })
-
-          result[protoName] = async function ({ host = false, credentials = false } = {}) {
-            // wrapping up the proto method names into a simple construction, in order to apply defaults
-            let con = await new ProtoConstructor(
+          result[protoName] = async function connect ({ host = false, credentials = false } = {}) {
+            return new ProtoConstructor(
               (host || defaultHost),
               (credentials ? makeCredentials(credentials) : defaultCredentials)
             )
-            return con
           }
+          result[protoName].definition = _.get(protoDef, protoStringPath)
         })
 
         return result
