@@ -8,7 +8,7 @@ const _ = require('lodash')
 const readdirAsync = promisify(readdir)
 
 class QuickgRPC {
-  constructor ({ host = 'localhost:443', credentials = false, basePath = __dirname }) {
+  constructor ({ host = 'localhost:443', credentials = false, basePath = __dirname, camelCaseMethods = true }) {
     // create default host address
     let defaultHost = host
     // create default credentials
@@ -35,8 +35,9 @@ class QuickgRPC {
           let protoName = _(protoStringPath).chain()
             .split('.')
             .last()
-            .camelCase()
             .value()
+
+          if (camelCaseMethods) protoName = _.camelCase(protoName)
 
           result[protoName] = async function connect ({ host = false, credentials = false } = {}) {
             return new ProtoConstructor(

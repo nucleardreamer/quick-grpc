@@ -19,7 +19,10 @@ async function go () {
       priv: readFileSync('example.key'),
       chain: readFileSync('example.cert')
     },
-    basePath: './protosDirectory'
+    // the base folder to search for .proto files
+    basePath: './protosDirectory',
+    // camel case all gRPC method names, defaults to `true`
+    camelCaseMethods: true
   })
 
   console.log('MyLibrary:', MyLibrary)

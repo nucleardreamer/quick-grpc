@@ -5,17 +5,26 @@ const QuickgRpc = require(join(__dirname, '..'))
 const server = require(join(__dirname, 'server'))
 
 test('testing quick-grpc module', async t => {
-  t.plan(11)
+  t.plan(13)
   
   t.comment('constructing quick-grpc client')
   let client = await new QuickgRpc({
     host: '0.0.0.0:9999',
     basePath: __dirname
   })
-  
+
   t.assert(_.isObject(client), 'constructor returns an object')
   t.assert(_.has(client, 'test'), 'has `test` method')
   t.assert(_.has(client, 'testCamelCase'), 'has `testCamelCase` method')
+
+  t.comment('test camelCaseMethods: false')
+  let clientNoCamelCaseMethods = await new QuickgRpc({
+    host: '0.0.0.0:9999',
+    basePath: __dirname,
+    camelCaseMethods: false
+  })
+  t.assert(_.has(clientNoCamelCaseMethods, 'Test'), 'has `Test` method without camelCaseNames')
+  t.assert(_.has(clientNoCamelCaseMethods, 'TestCamel_Case'), 'has `TestCamel_Case` method without camelCaseNames')
 
   t.comment('test defintions')
   t.assert(_.has(client, 'test.definition'), 'client.test has a defintion object')
