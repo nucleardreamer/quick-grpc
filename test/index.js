@@ -6,7 +6,7 @@ const server = require(join(__dirname, 'server'))
 
 test('testing quick-grpc module', async t => {
   t.plan(13)
-  
+
   t.comment('constructing quick-grpc client')
   let client = await new QuickgRpc({
     host: '0.0.0.0:9999',
@@ -38,7 +38,7 @@ test('testing quick-grpc module', async t => {
   t.assert(_.has(clientCon.__proto__, 'CoolStream'), 'test has CoolStream method')
 
   let msgPayload = { msg: 'a-ok' }
-  
+
   clientCon.CoolTest(msgPayload, function (err, msg) {
     t.comment('test.CoolTest method')
     t.assert(_.isNull(err), 'CoolTest callback error is null')
